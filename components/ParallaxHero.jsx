@@ -9,7 +9,7 @@ import s from "./ParallaxHero.module.css";
 // `cls` maps to a class in ParallaxHero.module.css; speed values drive the
 // per-frame transform applied in `update()`.
 const BACK_LAYERS = [
-  { src: "/parallax/background.png", cls: "bgImg", sx: 0.2, sy: 0.1, sz: 0, r: 0 },
+  { src: "/parallax/background.png", cls: "bgImg", sx: 0.14, sy: 0.1, sz: 0, r: 0 },
   { src: "/parallax/fog_7.png", cls: "fog7", sx: 0.25, sy: 0.15, sz: 0.05, r: 0.02 },
   { src: "/parallax/mountain_10.png", cls: "mountain10", sx: 0.3, sy: 0.2, sz: 0.1, r: 0.03 },
   { src: "/parallax/fog_6.png", cls: "fog6", sx: 0.35, sy: 0.22, sz: 0.12, r: 0.03 },
@@ -28,7 +28,7 @@ const FRONT_LAYERS = [
   { src: "/parallax/mountain_3.png", cls: "mountain3", sx: 0.4, sy: 0.48, sz: 0.3, r: 0.09 },
   { src: "/parallax/fog_2.png", cls: "fog2", sx: 0.73, sy: 0.5, sz: 0.32, r: 0.09 },
   { src: "/parallax/mountain_2.png", cls: "mountain2", sx: 0.4, sy: 0.52, sz: 0.34, r: 0.1 },
-  { src: "/parallax/mountain_1.png", cls: "mountain1", sx: 0.1, sy: 0.55, sz: 0.36, r: 0.1 },
+  { src: "/parallax/mountain_1.png", cls: "mountain1", sx: 0.2, sy: 0.55, sz: 0.36, r: 0.1 },
   { src: "/parallax/sun_rays.png", cls: "sunRays", sx: 0.4, sy: 0.25, sz: 0, r: 0.06 },
 ];
 
@@ -102,9 +102,12 @@ export default function ParallaxHero() {
     update(window.innerWidth / 2);
 
     // ---- Pointer parallax (desktop only, respects reduced-motion) --------
+    // Held back until the entrance animation has finished, so moving the cursor
+    // during the intro can't drag the still-fading-in layers around.
+    let ready = false;
     let pointerRaf = 0;
     const onPointerMove = (e) => {
-      if (pointerRaf) return;
+      if (!ready || pointerRaf) return;
       pointerRaf = requestAnimationFrame(() => {
         xvalue = e.clientX - window.innerWidth / 2;
         yvalue = e.clientY - window.innerHeight / 2;
@@ -118,18 +121,19 @@ export default function ParallaxHero() {
       window.addEventListener("mousemove", onPointerMove);
     }
 
-    // ---- Scroll-driven blur / fade reveal --------------------------------
+    // ---- Scroll-driven reveal --------------------------------------------
+    // The hero stays visible (just a subtle zoom + slight dim) so it can be
+    // seen moving behind the frosted-glass content. The blur itself comes from
+    // that section's backdrop-filter, not from the hero blurring itself.
     let scrollRaf = 0;
     const onScroll = () => {
       if (scrollRaf) return;
       scrollRaf = requestAnimationFrame(() => {
         const progress = Math.min(window.scrollY / window.innerHeight, 1);
-        const blur = (prefersReduced ? 6 : 16) * progress;
-        const scale = 1 + progress * 0.12;
-        const opacity = 1 - progress * 0.6;
-        hero.style.filter = `blur(${blur}px)`;
+        const scale = 1 + progress * 0.06;
+        const opacity = 1 - progress * 0.12;
         hero.style.transform = `scale(${scale})`;
-        hero.style.opacity = `${Math.max(opacity, 0)}`;
+        hero.style.opacity = `${opacity}`;
         if (cueRef.current) {
           cueRef.current.style.opacity = `${Math.max(1 - progress * 2.5, 0)}`;
         }
@@ -152,7 +156,8 @@ export default function ParallaxHero() {
       import("gsap").then(({ gsap }) => {
         if (cancelled) return;
         ctx = gsap.context(() => {
-          const tl = gsap.timeline();
+          // Enable the cursor parallax only once the whole intro has played out.
+          const tl = gsap.timeline({ onComplete: () => { ready = true; } });
           tl.set(layers, { opacity: 0, scale: 1.38 })
             .to(layers, {
               opacity: 1,
@@ -182,6 +187,9 @@ export default function ParallaxHero() {
               "-=0.6"
             );
         }, hero);
+      }).catch(() => {
+        // If GSAP ever fails to load, don't trap the parallax — enable it.
+        ready = true;
       });
     }
 

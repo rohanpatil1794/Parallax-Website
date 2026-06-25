@@ -56,10 +56,10 @@ export default function HomePage() {
         {/* ── Treks reveal section ─────────────────────────────────────── */}
         <section
           id="treks"
-          className="relative rounded-t-[2.5rem] bg-brand-50 pb-20 pt-16 shadow-[0_-24px_70px_-20px_rgba(2,23,41,0.55)]"
+          className="relative rounded-t-[2.5rem] border-t border-white/60 bg-gradient-to-b from-white/10 via-white/15 to-white/35 pb-20 pt-16 shadow-[0_-24px_70px_-20px_rgba(2,23,41,0.55)] backdrop-blur-2xl backdrop-saturate-150"
         >
           {/* grab-handle flourish */}
-          <div className="mx-auto mb-12 h-1.5 w-14 rounded-full bg-brand-200" />
+          <div className="mx-auto mb-12 h-1.5 w-14 rounded-full bg-white/70" />
 
           <div className="section">
             <div className="mx-auto max-w-2xl text-center">

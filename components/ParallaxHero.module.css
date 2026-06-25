@@ -51,7 +51,7 @@
   z-index: 4;
   width: 1610px;
   top: calc(50% + 85px);
-  left: calc(50% + 10px);
+  left: calc(50% - 50px);
 }
 
 .mountain9 {
@@ -166,7 +166,7 @@
   z-index: 18;
   width: 600px;
   top: calc(50% + 100px);
-  left: calc(50% - 590px);
+  left: calc(50% - 630px);
 }
 
 .sunRays {
@@ -192,7 +192,7 @@
   z-index: 21;
   width: 1600px;
   top: calc(100% - 35px);
-  left: 50%;
+  left: calc(50% + 120px);
 }
 
 .vignette {
