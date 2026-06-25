@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --header-h: 4.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-brand-50 text-ink antialiased;
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-outfit), var(--font-inter), sans-serif;
+    @apply tracking-tight;
+  }
+
+  ::selection {
+    background-color: rgba(14, 165, 233, 0.25);
+  }
+
+  /* Accessible focus ring across the whole app */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ember-500 ring-offset-2 ring-offset-white;
+  }
+}
+
+@layer components {
+  /* Reusable button system ------------------------------------------------ */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-medium
+      transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2
+      disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-md {
+    @apply px-6 py-3 text-sm;
+  }
+  .btn-lg {
+    @apply px-8 py-4 text-base;
+  }
+  .btn-primary {
+    @apply bg-ember-500 text-white shadow-lg shadow-ember-500/25
+      hover:bg-ember-600 hover:shadow-ember-500/40 active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply bg-brand-600 text-white hover:bg-brand-700 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply bg-white/10 text-white ring-1 ring-inset ring-white/30
+      backdrop-blur hover:bg-white/20;
+  }
+  .btn-outline {
+    @apply border border-brand-200 bg-white text-brand-700 hover:border-brand-300 hover:bg-brand-50;
+  }
+
+  /* Section rhythm */
+  .section {
+    @apply mx-auto max-w-7xl px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-600;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Subtle film-grain-free dark scrim used over hero imagery */
+  .scrim-bottom {
+    background: linear-gradient(to top, rgba(2, 23, 41, 0.85), rgba(2, 23, 41, 0) 60%);
+  }
+}
+
+/* Respect users who prefer reduced motion ------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
