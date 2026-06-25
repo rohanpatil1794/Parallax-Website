@@ -24,10 +24,10 @@ const FRONT_LAYERS = [
   { src: "/parallax/fog_4.png", cls: "fog4", sx: 0.58, sy: 0.37, sz: 0.22, r: 0.07 },
   { src: "/parallax/mountain_5.png", cls: "mountain5", sx: 0.6, sy: 0.3, sz: 0.24, r: 0.07 },
   { src: "/parallax/fog_3.png", cls: "fog3", sx: 0.63, sy: 0.42, sz: 0.26, r: 0.08 },
-  { src: "/parallax/mountain_4.png", cls: "mountain4", sx: 0.65, sy: 0.28, sz: 0.28, r: 0.08 },
+  { src: "/parallax/mountain_4.png", cls: "mountain4", sx: 0.5, sy: 0.28, sz: 0.28, r: 0.08 },
   { src: "/parallax/mountain_3.png", cls: "mountain3", sx: 0.4, sy: 0.48, sz: 0.3, r: 0.09 },
   { src: "/parallax/fog_2.png", cls: "fog2", sx: 0.73, sy: 0.5, sz: 0.32, r: 0.09 },
-  { src: "/parallax/mountain_2.png", cls: "mountain2", sx: 0.75, sy: 0.52, sz: 0.34, r: 0.1 },
+  { src: "/parallax/mountain_2.png", cls: "mountain2", sx: 0.4, sy: 0.52, sz: 0.34, r: 0.1 },
   { src: "/parallax/mountain_1.png", cls: "mountain1", sx: 0.1, sy: 0.55, sz: 0.36, r: 0.1 },
   { src: "/parallax/sun_rays.png", cls: "sunRays", sx: 0.4, sy: 0.25, sz: 0, r: 0.06 },
 ];
