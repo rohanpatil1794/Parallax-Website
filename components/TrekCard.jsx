@@ -16,7 +16,7 @@ import {
   X,
   Users,
 } from "lucide-react";
-import { formatPrice, difficultyTone } from "@/lib/treks";
+import { formatPrice, difficultyTone } from "@/lib/trekUtils";
 
 function Stat({ icon: Icon, label, value }) {
   return (

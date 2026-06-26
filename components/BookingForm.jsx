@@ -20,7 +20,7 @@ import {
   ArrowRight,
   Lock,
 } from "lucide-react";
-import { formatPrice } from "@/lib/treks";
+import { formatPrice } from "@/lib/trekUtils";
 
 const PAYMENT_METHODS = [
   { id: "upi", label: "UPI", icon: Smartphone },
