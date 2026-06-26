@@ -9,6 +9,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import { getAboutData } from "@/lib/serverData";
+
+const iconMap = { Compass, ShieldCheck, Leaf, HeartHandshake };
 
 export const metadata = {
   title: "About us",
@@ -16,37 +19,8 @@ export const metadata = {
     "Travello is a team of certified trek leaders making the mountains accessible, safe and unforgettable.",
 };
 
-const values = [
-  {
-    icon: Compass,
-    title: "Curiosity-led",
-    body: "We design trips that reward wonder — lesser-known trails, local stories, and time to just look up.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Safety obsessed",
-    body: "Wilderness-first-aid-certified leaders, conservative weather calls, and the right gear on every climb.",
-  },
-  {
-    icon: Leaf,
-    title: "Light on the land",
-    body: "Carry-back waste, plastic-free trails, and a portion of every booking funds mountain clean-ups.",
-  },
-  {
-    icon: HeartHandshake,
-    title: "Community-rooted",
-    body: "We hire, host and source locally so tourism actually reaches the villages we walk through.",
-  },
-];
-
-const team = [
-  { name: "Aditi Rane", role: "Founder & Lead Guide", initials: "AR", tone: "from-brand-500 to-brand-700" },
-  { name: "Vikram Thapa", role: "Himalaya Operations", initials: "VT", tone: "from-ember-500 to-ember-700" },
-  { name: "Sneha Kulkarni", role: "Safety & Training", initials: "SK", tone: "from-emerald-500 to-emerald-700" },
-  { name: "Rohan Patil", role: "Sahyadri Routes", initials: "RP", tone: "from-brand-600 to-ink" },
-];
-
 export default function AboutPage() {
+  const { story, values, team } = getAboutData();
   return (
     <main>
       <PageHero
@@ -74,19 +48,12 @@ export default function AboutPage() {
               Our story
             </span>
             <h2 className="mt-4 text-3xl font-extrabold text-ink sm:text-4xl">
-              From weekend Sahyadri hikes to Himalayan expeditions
+              {story.heading}
             </h2>
             <div className="mt-5 space-y-4 text-ink/70">
-              <p>
-                What started in 2016 as a handful of friends carpooling to Kalsubai
-                every weekend has grown into one of India's most-loved trekking
-                communities. We've since guided over 18,000 trekkers across 40+ routes.
-              </p>
-              <p>
-                We still run trips the same way we did on day one — small groups, honest
-                briefings, and leaders who treat the mountains (and the people who live
-                in them) with respect.
-              </p>
+              {story.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
             <Link href="/treks" className="btn btn-md btn-secondary mt-7">
               See where we go
@@ -106,15 +73,18 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((v) => (
+            {values.map((v) => {
+              const Icon = iconMap[v.icon];
+              return (
               <div key={v.title} className="rounded-3xl border border-brand-100 bg-white p-6 shadow-card">
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-100 text-brand-700">
-                  <v.icon className="h-6 w-6" aria-hidden="true" />
+                  {Icon && <Icon className="h-6 w-6" aria-hidden="true" />}
                 </span>
                 <h3 className="mt-5 text-lg font-bold text-ink">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink/65">{v.body}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

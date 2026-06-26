@@ -1,6 +1,6 @@
 import PageHero from "@/components/PageHero";
 import GalleryGrid from "@/components/GalleryGrid";
-import { getAllTreks } from "@/lib/treks";
+import { getGalleryData } from "@/lib/serverData";
 
 export const metadata = {
   title: "Gallery",
@@ -8,12 +8,7 @@ export const metadata = {
 };
 
 export default function GalleryPage() {
-  // Build the gallery from the trek imagery.
-  const items = getAllTreks().map((t) => ({
-    src: t.image,
-    title: t.name,
-    location: t.region,
-  }));
+  const items = getGalleryData();
 
   return (
     <main>

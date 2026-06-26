@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import PageHero from "@/components/PageHero";
 import BookingForm from "@/components/BookingForm";
+import { getAllTreks } from "@/lib/treks";
 
 export const metadata = {
   title: "Book a Trek",
@@ -24,6 +25,7 @@ function FormFallback() {
 }
 
 export default function BookPage() {
+  const treks = getAllTreks();
   return (
     <main>
       <PageHero
@@ -36,7 +38,7 @@ export default function BookPage() {
       <section className="bg-brand-50 py-16">
         <div className="section">
           <Suspense fallback={<FormFallback />}>
-            <BookingForm />
+            <BookingForm treks={treks} />
           </Suspense>
         </div>
       </section>

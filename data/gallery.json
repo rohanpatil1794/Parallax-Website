@@ -1,0 +1,8 @@
+[
+  { "id": "1", "src": "/treks/kalsubai.jpg", "title": "Kalsubai Peak", "location": "Sahyadris, Maharashtra" },
+  { "id": "2", "src": "/treks/harishchandragad.jpg", "title": "Harishchandragad Fort", "location": "Sahyadris, Maharashtra" },
+  { "id": "3", "src": "/treks/rajmachi.jpg", "title": "Rajmachi Twin Forts", "location": "Sahyadris, Maharashtra" },
+  { "id": "4", "src": "/treks/kedarkantha.jpg", "title": "Kedarkantha Summit", "location": "Himalayas, Uttarakhand" },
+  { "id": "5", "src": "/treks/hampta-pass.jpg", "title": "Hampta Pass Crossing", "location": "Himalayas, Himachal Pradesh" },
+  { "id": "6", "src": "/treks/valley-of-flowers.jpg", "title": "Valley of Flowers", "location": "Himalayas, Uttarakhand" }
+]

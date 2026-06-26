@@ -20,7 +20,7 @@ import {
   ArrowRight,
   Lock,
 } from "lucide-react";
-import { getAllTreks, getTrekBySlug, formatPrice } from "@/lib/treks";
+import { formatPrice } from "@/lib/treks";
 
 const PAYMENT_METHODS = [
   { id: "upi", label: "UPI", icon: Smartphone },
@@ -45,15 +45,14 @@ function Field({ label, htmlFor, required, error, hint, children }) {
   );
 }
 
-export default function BookingForm() {
-  const treks = getAllTreks();
+export default function BookingForm({ treks }) {
   const searchParams = useSearchParams();
   const preselected = searchParams.get("trek");
 
   const [status, setStatus] = useState("idle"); // idle | processing | done
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
-    trek: getTrekBySlug(preselected) ? preselected : treks[0].slug,
+    trek: treks.find((t) => t.slug === preselected) ? preselected : treks[0].slug,
     date: "",
     trekkers: 1,
     name: "",
@@ -68,7 +67,7 @@ export default function BookingForm() {
   });
 
   const selectedTrek = useMemo(
-    () => getTrekBySlug(form.trek) ?? treks[0],
+    () => treks.find((t) => t.slug === form.trek) ?? treks[0],
     [form.trek, treks]
   );
 

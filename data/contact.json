@@ -1,0 +1,15 @@
+{
+  "name": "Travello",
+  "tagline": "Expeditions for the curious.",
+  "description": "Guided treks and Himalayan expeditions across the Sahyadris and beyond. Find your summit with Travello.",
+  "email": "hello@travello.com",
+  "phone": "+91 98765 43210",
+  "address": "412, Skyline Heights, FC Road, Pune, Maharashtra 411005",
+  "hours": "Mon – Sat · 9:00 AM – 7:00 PM IST",
+  "socials": [
+    { "label": "Instagram", "href": "https://instagram.com", "icon": "instagram" },
+    { "label": "Facebook", "href": "https://facebook.com", "icon": "facebook" },
+    { "label": "YouTube", "href": "https://youtube.com", "icon": "youtube" },
+    { "label": "Twitter", "href": "https://twitter.com", "icon": "twitter" }
+  ]
+}

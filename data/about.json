@@ -1,0 +1,37 @@
+{
+  "story": {
+    "heading": "From weekend Sahyadri hikes to Himalayan expeditions",
+    "paragraphs": [
+      "What started in 2016 as a handful of friends carpooling to Kalsubai every weekend has grown into one of India's most-loved trekking communities. We've since guided over 18,000 trekkers across 40+ routes.",
+      "We still run trips the same way we did on day one — small groups, honest briefings, and leaders who treat the mountains (and the people who live in them) with respect."
+    ]
+  },
+  "values": [
+    {
+      "icon": "Compass",
+      "title": "Curiosity-led",
+      "body": "We design trips that reward wonder — lesser-known trails, local stories, and time to just look up."
+    },
+    {
+      "icon": "ShieldCheck",
+      "title": "Safety obsessed",
+      "body": "Wilderness-first-aid-certified leaders, conservative weather calls, and the right gear on every climb."
+    },
+    {
+      "icon": "Leaf",
+      "title": "Light on the land",
+      "body": "Carry-back waste, plastic-free trails, and a portion of every booking funds mountain clean-ups."
+    },
+    {
+      "icon": "HeartHandshake",
+      "title": "Community-rooted",
+      "body": "We hire, host and source locally so tourism actually reaches the villages we walk through."
+    }
+  ],
+  "team": [
+    { "name": "Aditi Rane", "role": "Founder & Lead Guide", "initials": "AR", "tone": "from-brand-500 to-brand-700" },
+    { "name": "Vikram Thapa", "role": "Himalaya Operations", "initials": "VT", "tone": "from-ember-500 to-ember-700" },
+    { "name": "Sneha Kulkarni", "role": "Safety & Training", "initials": "SK", "tone": "from-emerald-500 to-emerald-700" },
+    { "name": "Rohan Patil", "role": "Sahyadri Routes", "initials": "RP", "tone": "from-brand-600 to-ink" }
+  ]
+}
