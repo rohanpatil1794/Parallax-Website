@@ -5,7 +5,7 @@
     "tagline": "Stand on the rooftop of Maharashtra.",
     "region": "Sahyadris, Maharashtra",
     "location": "Bari Village, Ahmednagar",
-    "image": "/treks/kalsubai.jpg",
+    "image": "/treks/1782470217939.png",
     "difficulty": "Moderate",
     "durationDays": 1,
     "duration": "1 Day",
@@ -33,9 +33,21 @@
       "First-aid & safety equipment"
     ],
     "itinerary": [
-      { "day": "Night", "title": "Assemble at Bari Village", "detail": "Meet your trek leader, gear check and a quick briefing before the ascent." },
-      { "day": "Pre-dawn", "title": "Summit push", "detail": "Climb the ladder sections under headlamps to reach the peak before sunrise." },
-      { "day": "Morning", "title": "Sunrise & descent", "detail": "Soak in the views, visit the summit temple, then descend for breakfast." }
+      {
+        "day": "Night",
+        "title": "Assemble at Bari Village",
+        "detail": "Meet your trek leader, gear check and a quick briefing before the ascent."
+      },
+      {
+        "day": "Pre-dawn",
+        "title": "Summit push",
+        "detail": "Climb the ladder sections under headlamps to reach the peak before sunrise."
+      },
+      {
+        "day": "Morning",
+        "title": "Sunrise & descent",
+        "detail": "Soak in the views, visit the summit temple, then descend for breakfast."
+      }
     ]
   },
   {
@@ -72,9 +84,21 @@
       "All forest permits & camping fees"
     ],
     "itinerary": [
-      { "day": "Day 1", "title": "Khireshwar to plateau", "detail": "Trek up via Tolar Khind, explore the temple complex and set up camp." },
-      { "day": "Day 1", "title": "Konkan Kada sunset", "detail": "Walk to the cliff edge for one of the Sahyadris' finest sunsets." },
-      { "day": "Day 2", "title": "Caves & descent", "detail": "Sunrise, visit Kedareshwar cave, then a steady descent back to base." }
+      {
+        "day": "Day 1",
+        "title": "Khireshwar to plateau",
+        "detail": "Trek up via Tolar Khind, explore the temple complex and set up camp."
+      },
+      {
+        "day": "Day 1",
+        "title": "Konkan Kada sunset",
+        "detail": "Walk to the cliff edge for one of the Sahyadris' finest sunsets."
+      },
+      {
+        "day": "Day 2",
+        "title": "Caves & descent",
+        "detail": "Sunrise, visit Kedareshwar cave, then a steady descent back to base."
+      }
     ]
   },
   {
@@ -111,9 +135,21 @@
       "Safety & first-aid support"
     ],
     "itinerary": [
-      { "day": "Morning", "title": "Lonavala trailhead", "detail": "Briefing and an easy forest walk towards Udhewadi village." },
-      { "day": "Midday", "title": "Twin forts", "detail": "Explore Shrivardhan & Manaranjan with valley views all around." },
-      { "day": "Evening", "title": "Return", "detail": "Descend at golden hour, with firefly spotting in season." }
+      {
+        "day": "Morning",
+        "title": "Lonavala trailhead",
+        "detail": "Briefing and an easy forest walk towards Udhewadi village."
+      },
+      {
+        "day": "Midday",
+        "title": "Twin forts",
+        "detail": "Explore Shrivardhan & Manaranjan with valley views all around."
+      },
+      {
+        "day": "Evening",
+        "title": "Return",
+        "detail": "Descend at golden hour, with firefly spotting in season."
+      }
     ]
   },
   {
@@ -150,12 +186,36 @@
       "Forest permits & camping charges"
     ],
     "itinerary": [
-      { "day": "Day 1", "title": "Drive to Sankri", "detail": "Scenic transfer from Dehradun to the base village (1,920m)." },
-      { "day": "Day 2", "title": "Sankri to Juda-ka-Talab", "detail": "Forest trail to the frozen lake clearing (2,700m)." },
-      { "day": "Day 3", "title": "To Kedarkantha Base", "detail": "Climb to the open meadow base camp (3,500m)." },
-      { "day": "Day 4", "title": "Summit & descend", "detail": "Pre-dawn push to the summit (3,810m), descend to Hargaon." },
-      { "day": "Day 5", "title": "Hargaon to Sankri", "detail": "Final forest descent back to the village." },
-      { "day": "Day 6", "title": "Return to Dehradun", "detail": "Morning drive back with a lifetime of memories." }
+      {
+        "day": "Day 1",
+        "title": "Drive to Sankri",
+        "detail": "Scenic transfer from Dehradun to the base village (1,920m)."
+      },
+      {
+        "day": "Day 2",
+        "title": "Sankri to Juda-ka-Talab",
+        "detail": "Forest trail to the frozen lake clearing (2,700m)."
+      },
+      {
+        "day": "Day 3",
+        "title": "To Kedarkantha Base",
+        "detail": "Climb to the open meadow base camp (3,500m)."
+      },
+      {
+        "day": "Day 4",
+        "title": "Summit & descend",
+        "detail": "Pre-dawn push to the summit (3,810m), descend to Hargaon."
+      },
+      {
+        "day": "Day 5",
+        "title": "Hargaon to Sankri",
+        "detail": "Final forest descent back to the village."
+      },
+      {
+        "day": "Day 6",
+        "title": "Return to Dehradun",
+        "detail": "Morning drive back with a lifetime of memories."
+      }
     ]
   },
   {
@@ -192,11 +252,31 @@
       "Permits & internal transfers"
     ],
     "itinerary": [
-      { "day": "Day 1", "title": "Manali to Jobra to Chika", "detail": "Short drive then an easy walk to the first riverside camp." },
-      { "day": "Day 2", "title": "Chika to Balu-ka-Ghera", "detail": "Follow the Rani river through meadows to base." },
-      { "day": "Day 3", "title": "Pass crossing to Shea Goru", "detail": "Summit the pass (4,270m) and descend into Lahaul." },
-      { "day": "Day 4", "title": "Shea Goru to Chatru & Chandratal", "detail": "Descend, then drive to the alpine lake." },
-      { "day": "Day 5", "title": "Return to Manali", "detail": "Drive back over Rohtang with the Himalayas at your back." }
+      {
+        "day": "Day 1",
+        "title": "Manali to Jobra to Chika",
+        "detail": "Short drive then an easy walk to the first riverside camp."
+      },
+      {
+        "day": "Day 2",
+        "title": "Chika to Balu-ka-Ghera",
+        "detail": "Follow the Rani river through meadows to base."
+      },
+      {
+        "day": "Day 3",
+        "title": "Pass crossing to Shea Goru",
+        "detail": "Summit the pass (4,270m) and descend into Lahaul."
+      },
+      {
+        "day": "Day 4",
+        "title": "Shea Goru to Chatru & Chandratal",
+        "detail": "Descend, then drive to the alpine lake."
+      },
+      {
+        "day": "Day 5",
+        "title": "Return to Manali",
+        "detail": "Drive back over Rohtang with the Himalayas at your back."
+      }
     ]
   },
   {
@@ -233,12 +313,36 @@
       "Permits & national park fees"
     ],
     "itinerary": [
-      { "day": "Day 1", "title": "Rishikesh to Govindghat", "detail": "Scenic drive along the Alaknanda river." },
-      { "day": "Day 2", "title": "Govindghat to Ghangaria", "detail": "Trek up to the base village for the valley." },
-      { "day": "Day 3", "title": "Valley of Flowers", "detail": "A full day exploring the blooming valley." },
-      { "day": "Day 4", "title": "Hemkund Sahib", "detail": "Climb to the sacred high-altitude lake (4,300m)." },
-      { "day": "Day 5", "title": "Descend to Govindghat", "detail": "Return trek to the road head." },
-      { "day": "Day 6", "title": "Drive to Rishikesh", "detail": "Final transfer back to the plains." }
+      {
+        "day": "Day 1",
+        "title": "Rishikesh to Govindghat",
+        "detail": "Scenic drive along the Alaknanda river."
+      },
+      {
+        "day": "Day 2",
+        "title": "Govindghat to Ghangaria",
+        "detail": "Trek up to the base village for the valley."
+      },
+      {
+        "day": "Day 3",
+        "title": "Valley of Flowers",
+        "detail": "A full day exploring the blooming valley."
+      },
+      {
+        "day": "Day 4",
+        "title": "Hemkund Sahib",
+        "detail": "Climb to the sacred high-altitude lake (4,300m)."
+      },
+      {
+        "day": "Day 5",
+        "title": "Descend to Govindghat",
+        "detail": "Return trek to the road head."
+      },
+      {
+        "day": "Day 6",
+        "title": "Drive to Rishikesh",
+        "detail": "Final transfer back to the plains."
+      }
     ]
   }
 ]
