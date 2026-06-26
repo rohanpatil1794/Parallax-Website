@@ -10,37 +10,53 @@ import { mainNav } from "@/lib/site";
 export default function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
+  // "transparent" | "glass" | "solid"
+  const [phase, setPhase] = useState("transparent");
   const [open, setOpen] = useState(false);
 
-  // Solidify the bar once the user scrolls off the hero.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      if (!isHome) return;
+      const why = document.getElementById("why");
+      const whyTop = why ? why.getBoundingClientRect().top : Infinity;
+      const headerH = 72; // 4.5rem = --header-h
+
+      if (window.scrollY <= 24) {
+        setPhase("transparent");
+      } else if (whyTop > headerH) {
+        setPhase("glass");
+      } else {
+        setPhase("solid");
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   // Close the mobile menu whenever the route changes.
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // On the home page the header floats transparently over the hero until the
-  // user scrolls; on every other page it's solid from the start.
-  const solid = scrolled || !isHome || open;
-  const linkTone = solid ? "text-ink/70 hover:text-brand-700" : "text-white/85 hover:text-white";
+  // Non-home pages and open mobile menu always use solid.
+  const effectivePhase = !isHome || open ? "solid" : phase;
+  const isSolid = effectivePhase === "solid";
+  const isGlass = effectivePhase === "glass";
+  const linkTone = isSolid ? "text-ink/70 hover:text-brand-700" : "text-white/85 hover:text-white";
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        solid
+        isSolid
           ? "border-b border-brand-100 bg-white/85 shadow-sm backdrop-blur-md"
+          : isGlass
+          ? "border-b border-white/20 bg-white/10 backdrop-blur-2xl backdrop-saturate-150"
           : "bg-gradient-to-b from-black/30 to-transparent"
       }`}
     >
       <nav className="mx-auto flex h-[var(--header-h)] max-w-7xl items-center justify-between px-5 sm:px-8">
-        <Logo tone={solid ? "dark" : "light"} />
+        <Logo tone={isSolid ? "dark" : "light"} />
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-1 md:flex">
@@ -51,7 +67,7 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className={`rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${linkTone} ${
-                    active ? (solid ? "text-brand-700" : "text-white") : ""
+                    active ? (isSolid ? "text-brand-700" : "text-white") : ""
                   }`}
                 >
                   {item.label}
@@ -82,7 +98,7 @@ export default function Header() {
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
           className={`grid h-11 w-11 place-items-center rounded-xl transition-colors md:hidden ${
-            solid ? "text-ink hover:bg-brand-50" : "text-white hover:bg-white/10"
+            isSolid ? "text-ink hover:bg-brand-50" : "text-white hover:bg-white/10"
           }`}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
