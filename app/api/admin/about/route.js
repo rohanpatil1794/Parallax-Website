@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server";
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
-
-const ABOUT_PATH = join(process.cwd(), "data", "about.json");
+import { supabase } from "@/lib/supabase";
 
 export async function GET(request) {
   try { requireAdmin(request); } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  return NextResponse.json(JSON.parse(readFileSync(ABOUT_PATH, "utf-8")));
+  const { data } = await supabase
+    .from("about")
+    .select("data")
+    .eq("id", 1)
+    .single();
+  return NextResponse.json(data?.data ?? {});
 }
 
 export async function PUT(request) {
@@ -18,7 +20,10 @@ export async function PUT(request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const body = await request.json();
-  writeFileSync(ABOUT_PATH, JSON.stringify(body, null, 2), "utf-8");
+  const { error } = await supabase
+    .from("about")
+    .upsert({ id: 1, data: body, updated_at: new Date().toISOString() });
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   revalidatePath("/about");
   return NextResponse.json({ ok: true });
 }

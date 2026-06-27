@@ -41,8 +41,8 @@ const stats = [
   { value: "4.9★", label: "Average rating" },
 ];
 
-export default function HomePage() {
-  const treks = getAllTreks();
+export default async function HomePage() {
+  const treks = await getAllTreks();
 
   return (
     <>

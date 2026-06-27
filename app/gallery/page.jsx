@@ -7,8 +7,8 @@ export const metadata = {
   description: "Moments from the trail — peaks, passes and starlit camps across the Travello expedition map.",
 };
 
-export default function GalleryPage() {
-  const items = getGalleryData();
+export default async function GalleryPage() {
+  const items = await getGalleryData();
 
   return (
     <main>

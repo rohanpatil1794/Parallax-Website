@@ -3,10 +3,12 @@ import { Map, Images, Info, Phone, ArrowRight } from "lucide-react";
 import { getAllTreks } from "@/lib/treks";
 import { getGalleryData, getAboutData } from "@/lib/serverData";
 
-export default function AdminDashboard() {
-  const treks = getAllTreks();
-  const gallery = getGalleryData();
-  const about = getAboutData();
+export default async function AdminDashboard() {
+  const [treks, gallery, about] = await Promise.all([
+    getAllTreks(),
+    getGalleryData(),
+    getAboutData(),
+  ]);
 
   const stats = [
     { label: "Treks", value: treks.length, icon: Map, href: "/admin/treks", color: "bg-brand-100 text-brand-700" },

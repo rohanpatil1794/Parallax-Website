@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { getAllTreks } from "@/lib/treks";
+import { getTrekBySlug } from "@/lib/treks";
 import TrekForm from "@/components/admin/TrekForm";
 
-export default function EditTrekPage({ params }) {
-  const trek = getAllTreks().find((t) => t.slug === params.slug);
+export default async function EditTrekPage({ params }) {
+  const trek = await getTrekBySlug(params.slug);
   if (!trek) notFound();
 
   return (

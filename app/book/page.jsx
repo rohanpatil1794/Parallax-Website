@@ -24,8 +24,8 @@ function FormFallback() {
   );
 }
 
-export default function BookPage() {
-  const treks = getAllTreks();
+export default async function BookPage() {
+  const treks = await getAllTreks();
   return (
     <main>
       <PageHero

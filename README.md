@@ -1,90 +1,148 @@
 # Travello — Trekking & Expedition Website
 
-A production-ready **frontend** for a trekking company, built with **Next.js (App Router)**, **Tailwind CSS**, and **GSAP**. It preserves the original 3D parallax hero and grows it into a full, deployable marketing + booking UI.
+A full-stack **trekking company website** with a headless CMS admin panel, built with **Next.js 14 (App Router)**, **Tailwind CSS**, **GSAP**, and **Supabase**.
 
-> Data layer is **UI-only** for now. All trek content lives in `lib/treks.js` as mock data, and all forms simulate submission on the client. The shape is ready to be swapped for **Supabase** later without touching the components.
+## ✨ Features
 
-## ✨ What's inside
-
-| Capability | Where |
+### Public site
+| Page | What it does |
 | --- | --- |
-| **Explore treks** | `/treks` — filterable grid of every expedition |
-| **View trek details** | `/treks/[slug]` — full itinerary, inclusions, sticky booking card. Also previewable inline by expanding any card. |
-| **Book a trek** | `/book` — booking form with **UPI / credit / debit** payment UI (no real processing) |
-| **Parallax home** | `/` — the original mouse-driven 3D parallax hero that **blurs on scroll** to reveal trek cards |
-| Gallery (lightbox) | `/gallery` |
-| About us | `/about` |
-| Contact us + FAQs | `/contact` |
-| Terms & policies | `/terms` |
+| `/` | Mouse-driven 3D parallax hero that blurs on scroll to reveal featured trek cards |
+| `/treks` | Filterable grid of all expeditions |
+| `/treks/[slug]` | Full trek detail — itinerary, inclusions, sticky booking card. Any card on the treks page is also expandable inline via a blurred modal |
+| `/book` | Booking form with UPI / credit / debit payment UI |
+| `/gallery` | Masonry photo grid with keyboard-driven lightbox |
+| `/about` | Company story, values, team |
+| `/contact` | Contact form + FAQs |
+| `/terms` | Terms & policies |
 
-## 🎨 Design system
+### Admin CMS (`/admin`)
+Password-protected panel for managing all site content without touching code.
 
-Generated with the `ui-ux-pro-max` skill for an adventure/outdoor brand:
+| Section | Capabilities |
+| --- | --- |
+| **Treks** | Create, edit, delete treks · upload hero images |
+| **Gallery** | Add / remove photos · upload images |
+| **About** | Edit story, values, team members |
+| **Contact** | Update address, phone, email, social links |
 
-- **Style:** Motion-Driven (parallax, scroll reveal, entrance animation)
-- **Palette:** Sky blue `#0EA5E9` primary · adventure orange `#F97316` CTA · deep-ink `#0C4A6E` text
-- **Type:** Outfit (display) + Inter (body), via `next/font`
-- **Narrative:** dark, misty hero → blurs away into bright "clear skies" content
+Auth is HMAC-signed (Node.js `crypto`), stored as an HttpOnly cookie. Middleware guards all `/admin/*` routes.
 
 ## 🗂 Project structure
 
 ```
 app/
-  layout.jsx              # fonts, <Header/>, <Footer/>, metadata
-  page.jsx                # home: parallax hero + scroll-reveal treks + sections
-  globals.css             # Tailwind + button system + reduced-motion
-  treks/page.jsx          # all treks (filterable)
-  treks/[slug]/page.jsx   # trek detail (static-generated per trek)
+  layout.jsx                    # fonts, <Header/>, <Footer/>, metadata
+  page.jsx                      # home: parallax hero + trek cards + sections
+  globals.css                   # Tailwind directives + button system
+  treks/page.jsx                # all treks (filterable)
+  treks/[slug]/page.jsx         # trek detail (ISR, static params from Supabase)
   gallery/page.jsx
   about/page.jsx
+  book/page.jsx                 # booking form (Suspense-wrapped)
   contact/page.jsx
-  book/page.jsx           # booking form (Suspense-wrapped for search params)
   terms/page.jsx
-  not-found.jsx
+  admin/
+    login/page.jsx              # standalone login page
+    (shell)/                    # protected: sidebar layout
+      page.jsx                  # dashboard with content counts
+      treks/                    # trek list + new/edit forms
+      gallery/                  # gallery manager
+      about/page.jsx            # about editor
+      contact/page.jsx          # contact editor
+  api/admin/
+    login/route.js              # POST: verify creds, set HttpOnly cookie
+    logout/route.js             # POST: clear cookie
+    treks/route.js              # GET list, POST create
+    treks/[slug]/route.js       # GET, PUT, DELETE
+    treks/upload/route.js       # POST: image upload
+    gallery/route.js            # GET list, POST create
+    gallery/[id]/route.js       # PUT, DELETE
+    gallery/upload/route.js     # POST: image upload
+    about/route.js              # GET, PUT
+    contact/route.js            # GET, PUT
 components/
-  Header.jsx              # responsive, scroll-aware, transparent over hero
-  Footer.jsx              # Customer Support · About Us · Terms · Contact Info
-  ParallaxHero.jsx        # ported parallax + GSAP entrance + scroll-blur
-  ParallaxHero.module.css # layer geometry (ported from the original style.css)
-  TrekCard.jsx            # collapsed ⇄ expanded (in-place detail reveal)
-  TreksExplorer.jsx       # difficulty filter
-  BookingForm.jsx         # UPI/card UI, validation, success state
-  GalleryGrid.jsx         # masonry + keyboard-driven lightbox
-  ContactForm.jsx
-  PageHero.jsx, Logo.jsx
+  Header.jsx                    # scroll-aware: transparent → frosted → solid white
+  Footer.jsx
+  ParallaxHero.jsx              # GSAP entrance + mouse parallax + scroll blur
+  ParallaxHero.module.css       # layer geometry
+  TrekCard.jsx                  # card + blurred modal portal
+  TreksExplorer.jsx             # client-side difficulty filter
+  BookingForm.jsx               # UPI/card UI, validation
+  GalleryGrid.jsx               # masonry + lightbox
+  PageHero.jsx
+  admin/                        # TrekForm, GalleryManager, etc.
 lib/
-  treks.js                # mock trek catalogue (swap for Supabase later)
-  site.js                 # nav + footer config
+  supabase.js                   # Supabase server client (service role)
+  treks.js                      # getAllTreks, getTrekBySlug, getFeaturedTreks
+  serverData.js                 # getAboutData, getGalleryData, getContactData
+  trekUtils.js                  # formatPrice, difficultyTone (client-safe)
+  auth.js                       # HMAC session sign/verify, requireAdmin
+  site.js                       # static nav + footer config
+middleware.js                   # redirect guard for /admin/* (Edge runtime)
+scripts/
+  seed.mjs                      # one-time seed: data/*.json → Supabase
+data/
+  treks.json                    # source of truth for seed (now in Supabase)
+  gallery.json
+  about.json
+  contact.json
 public/
-  parallax/               # the original mountain/fog/sky PNG layers
-  treks/                  # trek photography
+  parallax/                     # mountain/fog/sky PNG layers
+  treks/                        # trek photography
 ```
 
 ## 🚀 Getting started
 
 ```bash
 npm install
+```
+
+Create `.env.local`:
+```env
+ADMIN_SECRET=your-secret-here
+
+NEXT_PUBLIC_SUPABASE_URL=https://<project>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
+SUPABASE_SERVICE_ROLE_KEY=sb_secret_...
+```
+
+Run the Supabase schema (SQL Editor in Supabase dashboard):
+```sql
+CREATE TABLE IF NOT EXISTS treks (
+  slug TEXT PRIMARY KEY, data JSONB NOT NULL,
+  position INTEGER NOT NULL DEFAULT 0, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS gallery (
+  id TEXT PRIMARY KEY, src TEXT NOT NULL, title TEXT, location TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS about (
+  id INTEGER PRIMARY KEY, data JSONB NOT NULL, updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS contact (
+  id INTEGER PRIMARY KEY, data JSONB NOT NULL, updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+```
+
+Seed initial content and start:
+```bash
+node scripts/seed.mjs
 npm run dev      # http://localhost:3000
 ```
 
-Build for production:
+Admin panel at `/admin` — default credentials: `admin` / `admin@123`.
 
-```bash
-npm run build
-npm run start
-```
+## 🎨 Design system
 
-## 🔌 Wiring up Supabase later
+- **Style:** Motion-Driven — parallax, scroll reveal, entrance animation
+- **Palette:** Sky blue `#0EA5E9` (brand) · adventure orange `#F97316` (ember/CTA) · deep-ink `#0C4A6E`
+- **Type:** Outfit (display) + Inter (body) via `next/font`
+- **Narrative:** dark misty hero → blurs away into bright "clear skies" content
 
-Replace the synchronous helpers in `lib/treks.js` (`getAllTreks`, `getTrekBySlug`) with Supabase queries and make the consuming Server Components `async`. Point the booking + contact form `onSubmit` handlers at a Supabase insert / route handler. No UI changes required.
+## ♿ Accessibility
 
-## ♿ Accessibility & UX notes
-
-- Respects `prefers-reduced-motion` (mouse parallax, GSAP entrance and scroll-blur all soften/disable).
-- Keyboard-operable cards, gallery lightbox, and forms; visible focus rings throughout.
-- `next/image` for all content photography; SVG (Lucide) icons, never emoji.
-- Responsive at 375 / 768 / 1024 / 1440px.
-
----
-
-The original vanilla build (`index.html`, `style.css`, `js/app.js`) is kept at the repo root for reference; the parallax layer art now lives in `public/parallax/`.
+- Respects `prefers-reduced-motion` — parallax, GSAP, and scroll blur all soften or disable
+- Keyboard-operable cards, lightbox, and forms; visible focus rings throughout
+- `next/image` for all photography; Lucide SVG icons throughout
+- Responsive at 375 / 768 / 1024 / 1440 px

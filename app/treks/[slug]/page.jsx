@@ -23,12 +23,13 @@ import {
 } from "@/lib/treks";
 
 // Pre-render a static page per trek (great for SEO + speed).
-export function generateStaticParams() {
-  return getAllTreks().map((t) => ({ slug: t.slug }));
+export async function generateStaticParams() {
+  const treks = await getAllTreks();
+  return treks.map((t) => ({ slug: t.slug }));
 }
 
-export function generateMetadata({ params }) {
-  const trek = getTrekBySlug(params.slug);
+export async function generateMetadata({ params }) {
+  const trek = await getTrekBySlug(params.slug);
   if (!trek) return { title: "Trek not found" };
   return {
     title: trek.name,
@@ -51,11 +52,11 @@ function Fact({ icon: Icon, label, value }) {
   );
 }
 
-export default function TrekDetailPage({ params }) {
-  const trek = getTrekBySlug(params.slug);
+export default async function TrekDetailPage({ params }) {
+  const trek = await getTrekBySlug(params.slug);
   if (!trek) notFound();
 
-  const related = getAllTreks()
+  const related = (await getAllTreks())
     .filter((t) => t.slug !== trek.slug)
     .slice(0, 3);
 

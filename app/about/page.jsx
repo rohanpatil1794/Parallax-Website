@@ -19,8 +19,8 @@ export const metadata = {
     "Travello is a team of certified trek leaders making the mountains accessible, safe and unforgettable.",
 };
 
-export default function AboutPage() {
-  const { story, values, team } = getAboutData();
+export default async function AboutPage() {
+  const { story, values, team } = await getAboutData();
   return (
     <main>
       <PageHero

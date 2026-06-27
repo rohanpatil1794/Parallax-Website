@@ -8,8 +8,8 @@ export const metadata = {
     "Browse every Travello expedition — from beginner-friendly Sahyadri trails to high-altitude Himalayan crossings.",
 };
 
-export default function TreksPage() {
-  const treks = getAllTreks();
+export default async function TreksPage() {
+  const treks = await getAllTreks();
 
   return (
     <main>
