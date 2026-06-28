@@ -8,8 +8,10 @@ import {
   Facebook,
   Youtube,
   Twitter,
+  Rss,
 } from "lucide-react";
 import Logo from "./Logo";
+import NewsletterForm from "./NewsletterForm";
 import { siteConfig, footerNav } from "@/lib/site";
 
 const socialIcons = { instagram: Instagram, facebook: Facebook, youtube: Youtube, twitter: Twitter };
@@ -17,6 +19,26 @@ const socialIcons = { instagram: Instagram, facebook: Facebook, youtube: Youtube
 export default function Footer() {
   return (
     <footer className="relative z-10 border-t border-brand-100 bg-ink text-brand-100">
+      {/* Newsletter band */}
+      <div className="border-b border-white/10">
+        <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-ember-500/20 text-ember-400">
+                <Rss className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <p className="font-semibold text-white">Get trek updates</p>
+                <p className="text-sm text-brand-200/70">New routes, seasonal deals, and trail stories.</p>
+              </div>
+            </div>
+            <div className="sm:w-96">
+              <NewsletterForm />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Brand + socials */}
@@ -98,7 +120,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-brand-200/70 sm:flex-row">
-          <p>© {2026} {siteConfig.name}. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
             Crafted for the mountains
             <span className="text-ember-400" aria-hidden="true">▲</span>
