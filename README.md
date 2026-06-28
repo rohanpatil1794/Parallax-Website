@@ -7,14 +7,20 @@ A full-stack **trekking company website** with a headless CMS admin panel, built
 ### Public site
 | Page | What it does |
 | --- | --- |
-| `/` | Mouse-driven 3D parallax hero that blurs on scroll to reveal featured trek cards |
-| `/treks` | Filterable grid of all expeditions |
-| `/treks/[slug]` | Full trek detail — itinerary, inclusions, sticky booking card. Any card on the treks page is also expandable inline via a blurred modal |
-| `/book` | Booking form with UPI / credit / debit payment UI |
-| `/gallery` | Masonry photo grid with keyboard-driven lightbox |
-| `/about` | Company story, values, team |
-| `/contact` | Contact form + FAQs |
+| `/` | Parallax hero · How it works · Trek cards · Testimonials · Stats · CTA |
+| `/treks` | Search + difficulty + region filters · sort by price/duration/rating |
+| `/treks/[slug]` | Full itinerary · difficulty meter · packing list · share button · JSON-LD |
+| `/book` | Booking form with trek preview sidebar · UPI / credit / debit payment UI |
+| `/gallery` | Masonry grid · lightbox with dot indicators, counter, and keyboard nav |
+| `/about` | Story · milestones band · values · team cards · certifications · careers |
+| `/contact` | Contact cards · Google Maps embed · animated FAQ accordion |
 | `/terms` | Terms & policies |
+
+### Global UX
+- Floating back-to-top + WhatsApp chat button (appears after 500px scroll)
+- Newsletter signup in footer (animated submit + success state)
+- Header active-page underline indicator
+- Dynamic sitemap at `/sitemap.xml` and robots at `/robots.txt`
 
 ### Admin CMS (`/admin`)
 Password-protected panel for managing all site content without touching code.
