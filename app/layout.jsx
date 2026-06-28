@@ -32,12 +32,36 @@ export const metadata = {
     "Himalayan treks",
     "Sahyadri treks",
     "guided expeditions",
+    "adventure travel India",
     "Travello",
   ],
+  authors: [{ name: "Travello" }],
+  creator: "Travello",
   openGraph: {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
     type: "website",
+    siteName: siteConfig.name,
+    locale: "en_IN",
+    images: [
+      {
+        url: "/treks/kedarkantha.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Travello — Guided Himalayan treks",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    images: ["/treks/kedarkantha.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
 };
 
