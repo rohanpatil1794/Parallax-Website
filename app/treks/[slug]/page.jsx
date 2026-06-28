@@ -348,8 +348,25 @@ export default async function TrekDetailPage({ params }) {
         </div>
       </section>
 
+      {/* ── Sticky mobile booking bar ────────────────────────────────── */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-brand-100 bg-white/95 px-4 py-3 backdrop-blur-md md:hidden">
+        <div className="mx-auto flex max-w-sm items-center justify-between gap-3">
+          <div>
+            <p className="text-[0.7rem] text-ink/50">Starting from</p>
+            <p className="font-display text-xl font-bold text-ink">
+              {formatPrice(trek.price)}
+              <span className="text-xs font-normal text-ink/45"> /person</span>
+            </p>
+          </div>
+          <Link href={`/book?trek=${trek.slug}`} className="btn btn-md btn-primary flex-shrink-0">
+            Book now
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+
       {/* ── Related treks ────────────────────────────────────────────── */}
-      <section className="bg-white py-16">
+      <section className="bg-white pb-28 pt-16 md:py-16">
         <div className="section">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-2xl font-bold text-ink sm:text-3xl">You might also like</h2>
