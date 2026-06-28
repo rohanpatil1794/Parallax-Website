@@ -215,6 +215,40 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* Journey timeline */}
+      <section className="bg-brand-50 py-20">
+        <div className="section max-w-3xl">
+          <div className="text-center">
+            <span className="eyebrow">
+              <Mountain className="h-4 w-4" aria-hidden="true" />
+              Our journey
+            </span>
+            <h2 className="mt-4 text-3xl font-extrabold text-ink sm:text-4xl">
+              Nine seasons in the mountains
+            </h2>
+          </div>
+          <ol className="mt-14 space-y-0 border-l-2 border-brand-200 pl-8">
+            {[
+              { year: "2016", title: "First summit", body: "Three founders, one guide, and 12 trekkers on Kedarkantha. A terrible tent setup, but a perfect sunrise." },
+              { year: "2017", title: "100 trekkers", body: "Word spread. We ran 8 batches that year and hired our first full-time trek leader, Rajan." },
+              { year: "2019", title: "Himalayan crossings", body: "Expanded to the big passes — Hampta, Pin Bhaba, Borasu. Altitude training added to every onboarding." },
+              { year: "2021", title: "Plastic-free pledge", body: "After a watershed cleanup drive, we went fully plastic-free on all trails. Every trekker signs the pledge." },
+              { year: "2023", title: "10,000 summits", body: "The 10,000th Travello trekker reached their summit on Brahmatal. We're nowhere near done." },
+              { year: "2025", title: "Today", body: "18K+ trekkers guided. 40+ routes. A team of 22 certified leaders. And new trails being scouted this summer." },
+            ].map((item, i) => (
+              <li key={item.year} className="relative pb-10 last:pb-0">
+                <span className="absolute -left-[2.35rem] top-1 flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-[0.65rem] font-bold text-white ring-4 ring-brand-50">
+                  {item.year.slice(2)}
+                </span>
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-500">{item.year}</p>
+                <h3 className="mt-1 text-lg font-bold text-ink">{item.title}</h3>
+                <p className="mt-1 text-ink/65">{item.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       {/* Careers (#careers) */}
       <section id="careers" className="bg-white py-20">
         <div className="section">
