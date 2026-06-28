@@ -236,15 +236,30 @@ export default function TrekCard({ trek, priority = false }) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 scrim-bottom" />
-          <span
-            className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset ${difficultyTone[trek.difficulty]}`}
-          >
-            {trek.difficulty}
-          </span>
+          {/* Featured badge */}
+          {trek.featured && (
+            <span className="absolute left-4 top-4 rounded-full bg-ember-500 px-3 py-1 text-xs font-bold text-white shadow-sm">
+              Featured
+            </span>
+          )}
+          {!trek.featured && (
+            <span
+              className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset ${difficultyTone[trek.difficulty]}`}
+            >
+              {trek.difficulty}
+            </span>
+          )}
           <span className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-ink shadow-sm backdrop-blur">
             <Star className="h-3.5 w-3.5 fill-ember-400 text-ember-400" aria-hidden="true" />
             {trek.rating}
           </span>
+          {trek.featured && (
+            <span
+              className={`absolute left-4 top-11 rounded-full px-2.5 py-0.5 text-[0.65rem] font-semibold ring-1 ring-inset ${difficultyTone[trek.difficulty]}`}
+            >
+              {trek.difficulty}
+            </span>
+          )}
           <div className="absolute inset-x-0 bottom-0 p-4 text-white">
             <p className="flex items-center gap-1.5 text-xs font-medium text-white/85">
               <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
@@ -269,18 +284,24 @@ export default function TrekCard({ trek, priority = false }) {
             <Stat icon={Calendar} value={trek.bestSeason} label="" />
           </div>
 
-          <div className="mt-auto flex items-center justify-between pt-5">
+          <div className="mt-auto flex items-center justify-between border-t border-brand-50 pt-4">
             <div>
               <span className="text-xs text-ink/50">From</span>
               <p className="font-display text-xl font-bold text-ink">
                 {formatPrice(trek.price)}
                 <span className="text-xs font-normal text-ink/50"> / person</span>
               </p>
+              {trek.reviews && (
+                <p className="flex items-center gap-1 text-[0.7rem] text-ink/40">
+                  <Star className="h-3 w-3 fill-ember-400 text-ember-400" aria-hidden="true" />
+                  {trek.rating} · {trek.reviews} reviews
+                </p>
+              )}
             </div>
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-100"
+              className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-700"
             >
               View details
             </button>
