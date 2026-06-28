@@ -446,7 +446,7 @@ export default function BookingForm({ treks }) {
       {/* Right: sticky order summary */}
       <div className="lg:col-span-2">
         <div className="sticky top-[calc(var(--header-h)+1.5rem)] overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-card">
-          <div className="relative h-36">
+          <div className="relative h-44">
             <Image
               src={selectedTrek.image}
               alt={selectedTrek.name}
@@ -454,10 +454,16 @@ export default function BookingForm({ treks }) {
               sizes="(max-width: 1024px) 100vw, 33vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 scrim-bottom" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
+            {selectedTrek.difficulty && (
+              <span className="absolute left-3 top-3 rounded-full bg-white/20 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur">
+                {selectedTrek.difficulty}
+              </span>
+            )}
             <div className="absolute inset-x-0 bottom-0 p-4 text-white">
-              <p className="text-xs text-white/80">{selectedTrek.region}</p>
-              <h3 className="font-display text-lg font-bold">{selectedTrek.name}</h3>
+              <p className="text-xs text-white/75">{selectedTrek.region}</p>
+              <h3 className="font-display text-lg font-bold leading-tight">{selectedTrek.name}</h3>
+              <p className="mt-1 text-xs text-white/70">{selectedTrek.duration} · {selectedTrek.altitudeM}m max</p>
             </div>
           </div>
 
