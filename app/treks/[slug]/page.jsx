@@ -247,15 +247,21 @@ export default async function TrekDetailPage({ params }) {
               </ul>
             </div>
 
-            {/* Difficulty meter */}
+            {/* Difficulty + altitude at a glance */}
             <div className="mt-10 rounded-3xl border border-brand-100 bg-white p-6">
-              <h2 className="text-lg font-bold text-ink">Difficulty at a glance</h2>
-              <div className="mt-4 flex items-center gap-4">
-                <div className="flex flex-1 gap-1.5">
+              <h2 className="text-lg font-bold text-ink">At a glance</h2>
+
+              {/* Difficulty bar */}
+              <div className="mt-4">
+                <div className="mb-2 flex items-center justify-between text-xs text-ink/55">
+                  <span>Difficulty</span>
+                  <span className="font-semibold text-ink">{trek.difficulty}</span>
+                </div>
+                <div className="flex gap-1.5">
                   {[1, 2, 3].map((lvl) => (
                     <div
                       key={lvl}
-                      className={`h-3 flex-1 rounded-full transition-colors ${
+                      className={`h-2.5 flex-1 rounded-full transition-colors ${
                         lvl <= (DIFFICULTY_METER[trek.difficulty] ?? 1)
                           ? trek.difficulty === "Challenging"
                             ? "bg-rose-500"
@@ -267,9 +273,29 @@ export default async function TrekDetailPage({ params }) {
                     />
                   ))}
                 </div>
-                <span className="text-sm font-semibold text-ink">{trek.difficulty}</span>
               </div>
-              <p className="mt-3 text-xs text-ink/55">
+
+              {/* Altitude visualizer */}
+              <div className="mt-5">
+                <div className="mb-2 flex items-center justify-between text-xs text-ink/55">
+                  <span>Max altitude</span>
+                  <span className="font-semibold text-ink">{trek.altitudeM} m</span>
+                </div>
+                <div className="relative h-2.5 overflow-hidden rounded-full bg-brand-100">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-brand-400 to-brand-600"
+                    style={{ width: `${Math.min(100, (trek.altitudeM / 6000) * 100)}%` }}
+                    title={`${trek.altitudeM} m of 6000 m scale`}
+                  />
+                </div>
+                <div className="mt-1 flex justify-between text-[0.6rem] text-ink/35">
+                  <span>Sea level</span>
+                  <span>5000 m (tree line)</span>
+                  <span>6000+ m</span>
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs text-ink/55">
                 {trek.difficulty === "Easy" && "Suitable for beginners. Moderate fitness required. No prior trekking experience needed."}
                 {trek.difficulty === "Moderate" && "Requires reasonable fitness. Some steep sections and multi-day effort. Beginners with preparation are welcome."}
                 {trek.difficulty === "Challenging" && "High altitude, long days, and demanding terrain. Prior trekking experience strongly recommended."}
