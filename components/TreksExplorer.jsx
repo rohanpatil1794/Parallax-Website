@@ -1,10 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search, SlidersHorizontal, X, ChevronDown } from "lucide-react";
+import { Search, SlidersHorizontal, X, ChevronDown, Flame, Mountain } from "lucide-react";
 import TrekCard from "./TrekCard";
 
 const DIFFICULTIES = ["All", "Easy", "Moderate", "Challenging"];
+
+// Quick-pick presets — let users jump to a common filter in one click
+const QUICK_PICKS = [
+  { label: "Beginner friendly", difficulty: "Easy", region: "All" },
+  { label: "Himalayan classic", difficulty: "All", region: "Himalaya" },
+  { label: "Weekend getaway", difficulty: "Easy", region: "Sahyadri" },
+  { label: "Summit challenge", difficulty: "Challenging", region: "All" },
+];
 
 const SORT_OPTIONS = [
   { value: "default",     label: "Recommended" },
@@ -34,6 +42,14 @@ export default function TreksExplorer({ treks }) {
   const regions = useMemo(() => {
     const set = new Set(treks.map((t) => t.region?.split(",")[0].trim()).filter(Boolean));
     return ["All", ...Array.from(set)];
+  }, [treks]);
+
+  const difficultyCounts = useMemo(() => {
+    const counts = { All: treks.length };
+    treks.forEach((t) => {
+      counts[t.difficulty] = (counts[t.difficulty] ?? 0) + 1;
+    });
+    return counts;
   }, [treks]);
 
   const visible = useMemo(() => {
@@ -70,6 +86,29 @@ export default function TreksExplorer({ treks }) {
 
   return (
     <div>
+      {/* ── Quick picks ────────────────────────────────────────────── */}
+      <div className="mb-6 flex flex-wrap items-center gap-2">
+        <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-ink/45">
+          <Flame className="h-3.5 w-3.5 text-ember-500" aria-hidden="true" />
+          Quick picks
+        </span>
+        {QUICK_PICKS.map((p) => (
+          <button
+            key={p.label}
+            type="button"
+            onClick={() => {
+              setQuery("");
+              setDifficulty(p.difficulty);
+              setRegion(p.region);
+              setSort("default");
+            }}
+            className="rounded-full border border-brand-100 bg-white px-3.5 py-1.5 text-xs font-medium text-ink/65 shadow-sm transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+
       {/* ── Controls bar ───────────────────────────────────────────── */}
       <div className="mb-8 space-y-4">
         {/* Search */}
@@ -107,13 +146,20 @@ export default function TreksExplorer({ treks }) {
                 type="button"
                 onClick={() => setDifficulty(d)}
                 aria-pressed={difficulty === d}
-                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-200 ${
+                className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-200 ${
                   difficulty === d
                     ? "bg-brand-600 text-white shadow-sm"
                     : "bg-white text-ink/70 ring-1 ring-inset ring-brand-100 hover:bg-brand-50"
                 }`}
               >
                 {d}
+                {difficultyCounts[d] !== undefined && (
+                  <span className={`rounded-full px-1.5 py-0 text-[0.6rem] font-bold ${
+                    difficulty === d ? "bg-white/20 text-white" : "bg-brand-50 text-ink/40"
+                  }`}>
+                    {difficultyCounts[d]}
+                  </span>
+                )}
               </button>
             ))}
           </div>
