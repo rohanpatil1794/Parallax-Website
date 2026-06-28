@@ -1,22 +1,37 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, MapPin, ZoomIn } from "lucide-react";
 
 export default function GalleryGrid({ items }) {
-  const [active, setActive] = useState(null); // index | null
+  const [active, setActive] = useState(null); // index into filtered list | null
+  const [filter, setFilter] = useState("All");
   const isOpen = active !== null;
+
+  // Derive unique locations (first segment before comma)
+  const locations = useMemo(() => {
+    const set = new Set(items.map((it) => it.location?.split(",")[0].trim()).filter(Boolean));
+    return ["All", ...Array.from(set).sort()];
+  }, [items]);
+
+  const filtered = useMemo(
+    () => (filter === "All" ? items : items.filter((it) => it.location?.startsWith(filter))),
+    [items, filter]
+  );
 
   const close = useCallback(() => setActive(null), []);
   const prev = useCallback(
-    () => setActive((i) => (i === null ? i : (i - 1 + items.length) % items.length)),
-    [items.length]
+    () => setActive((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length)),
+    [filtered.length]
   );
   const next = useCallback(
-    () => setActive((i) => (i === null ? i : (i + 1) % items.length)),
-    [items.length]
+    () => setActive((i) => (i === null ? i : (i + 1) % filtered.length)),
+    [filtered.length]
   );
+
+  // Close lightbox when filter changes
+  useEffect(() => { setActive(null); }, [filter]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -36,15 +51,38 @@ export default function GalleryGrid({ items }) {
 
   return (
     <>
+      {/* Location filter pills */}
+      {locations.length > 2 && (
+        <div className="mb-8 flex flex-wrap items-center gap-2">
+          {locations.map((loc) => (
+            <button
+              key={loc}
+              type="button"
+              onClick={() => setFilter(loc)}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                filter === loc
+                  ? "bg-brand-600 text-white shadow-sm"
+                  : "bg-white text-ink/60 ring-1 ring-brand-100 hover:bg-brand-50 hover:text-brand-700"
+              }`}
+            >
+              {loc}
+            </button>
+          ))}
+          <span className="ml-auto text-sm text-ink/40">
+            {filtered.length} photo{filtered.length !== 1 ? "s" : ""}
+          </span>
+        </div>
+      )}
+
       {/* Masonry grid */}
       <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-        {items.map((item, i) => (
+        {filtered.map((item, i) => (
           <button
             key={item.src + i}
             type="button"
             onClick={() => setActive(i)}
             className="group relative block w-full cursor-pointer overflow-hidden rounded-3xl shadow-card focus-visible:ring-2 focus-visible:ring-ember-500"
-            aria-label={`Open ${item.title}`}
+            aria-label={`Open ${item.title} (${i + 1} of ${filtered.length})`}
           >
             <Image
               src={item.src}
@@ -76,13 +114,13 @@ export default function GalleryGrid({ items }) {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${items[active].title} — enlarged`}
+          aria-label={`${filtered[active].title} — enlarged`}
           className="fixed inset-0 z-[200] flex items-center justify-center bg-ink/97 p-4"
           onClick={close}
         >
           {/* Counter */}
           <div className="absolute left-1/2 top-4 -translate-x-1/2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">
-            {active + 1} / {items.length}
+            {active + 1} / {filtered.length}
           </div>
 
           {/* Close */}
@@ -111,8 +149,8 @@ export default function GalleryGrid({ items }) {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={items[active].src}
-              alt={items[active].title}
+              src={filtered[active].src}
+              alt={filtered[active].title}
               width={1600}
               height={1000}
               sizes="100vw"
@@ -120,10 +158,10 @@ export default function GalleryGrid({ items }) {
               className="mx-auto max-h-[78vh] w-auto rounded-2xl object-contain shadow-2xl"
             />
             <figcaption className="mt-5 text-center text-white">
-              <p className="font-display text-xl font-bold">{items[active].title}</p>
+              <p className="font-display text-xl font-bold">{filtered[active].title}</p>
               <p className="mt-1 flex items-center justify-center gap-1.5 text-sm text-white/65">
                 <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-                {items[active].location}
+                {filtered[active].location}
               </p>
             </figcaption>
           </figure>
@@ -138,9 +176,9 @@ export default function GalleryGrid({ items }) {
             <ChevronRight className="h-7 w-7" aria-hidden="true" />
           </button>
 
-          {/* Dot indicators */}
+          {/* Dot indicators (up to 12 shown) */}
           <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5">
-            {items.map((_, i) => (
+            {filtered.slice(0, 12).map((_, i) => (
               <button
                 key={i}
                 type="button"
