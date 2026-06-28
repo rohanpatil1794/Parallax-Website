@@ -51,11 +51,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <body className="min-h-screen">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <Header />
         {/* `children` renders each route. The home route paints a fixed
             parallax hero behind its own content; interior pages add their
             own top padding to clear the fixed header. */}
-        {children}
+        <div id="main-content">{children}</div>
         <Footer />
         <FloatingActions />
       </body>

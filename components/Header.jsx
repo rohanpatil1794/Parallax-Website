@@ -13,9 +13,13 @@ export default function Header() {
   // "transparent" | "glass" | "solid"
   const [phase, setPhase] = useState("transparent");
   const [open, setOpen] = useState(false);
+  const [scrollPct, setScrollPct] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
+      const docH = document.body.scrollHeight - window.innerHeight;
+      setScrollPct(docH > 0 ? Math.min(100, (window.scrollY / docH) * 100) : 0);
+
       if (!isHome) return;
       const why = document.getElementById("why");
       const whyTop = why ? why.getBoundingClientRect().top : Infinity;
@@ -132,6 +136,13 @@ export default function Header() {
           </li>
         </ul>
       </div>
+
+      {/* Scroll progress bar */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 h-[2px] bg-brand-500 transition-[width] duration-100 ease-linear"
+        style={{ width: `${scrollPct}%`, opacity: scrollPct > 2 ? 1 : 0 }}
+      />
     </header>
   );
 }
