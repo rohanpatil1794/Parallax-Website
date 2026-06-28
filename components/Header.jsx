@@ -66,10 +66,17 @@ export default function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${linkTone} ${
-                    active ? (isSolid ? "text-brand-700" : "text-white") : ""
+                  className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${linkTone} ${
+                    active
+                      ? isSolid
+                        ? "!text-brand-700 font-semibold"
+                        : "!text-white font-semibold"
+                      : ""
                   }`}
                 >
+                  {active && (
+                    <span className={`absolute bottom-0.5 left-4 right-4 h-0.5 rounded-full ${isSolid ? "bg-brand-500" : "bg-white/70"}`} />
+                  )}
                   {item.label}
                 </Link>
               </li>
@@ -78,12 +85,6 @@ export default function Header() {
         </ul>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/treks"
-            className={`text-sm font-medium transition-colors ${linkTone}`}
-          >
-            All treks
-          </Link>
           <Link href="/book" className="btn btn-md btn-primary">
             Book now
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -113,7 +114,7 @@ export default function Header() {
         } transition-[max-height] duration-300 ease-in-out`}
       >
         <ul className="space-y-1 px-5 py-4">
-          {[...mainNav, { label: "All treks", href: "/treks" }].map((item) => (
+          {mainNav.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
