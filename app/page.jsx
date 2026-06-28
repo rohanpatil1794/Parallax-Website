@@ -12,6 +12,11 @@ import {
   CreditCard,
   Backpack,
   Flag,
+  Snowflake,
+  Sun,
+  CloudRain,
+  Wind,
+  TrendingUp,
 } from "lucide-react";
 import ParallaxHero from "@/components/ParallaxHero";
 import TrekCard from "@/components/TrekCard";
@@ -71,6 +76,53 @@ const howItWorks = [
     icon: Flag,
     title: "Reach your summit",
     body: "Show up, breathe deep, and follow your guide. We handle the rest — permits, camps, meals, safety.",
+  },
+];
+
+const seasons = [
+  {
+    icon: CloudRain,
+    name: "Monsoon",
+    months: "June – Sep",
+    highlight: "Valley of Flowers, Har Ki Dun",
+    active: true,
+    color: "bg-emerald-500",
+    textColor: "text-emerald-700",
+    bgColor: "bg-emerald-50",
+    ringColor: "ring-emerald-200",
+  },
+  {
+    icon: Sun,
+    name: "Summer",
+    months: "Mar – Jun",
+    highlight: "Kedarkantha, Brahmatal",
+    active: false,
+    color: "bg-amber-400",
+    textColor: "text-amber-700",
+    bgColor: "bg-amber-50",
+    ringColor: "ring-amber-200",
+  },
+  {
+    icon: Snowflake,
+    name: "Winter",
+    months: "Nov – Feb",
+    highlight: "Kedarkantha, Kuari Pass",
+    active: false,
+    color: "bg-sky-400",
+    textColor: "text-sky-700",
+    bgColor: "bg-sky-50",
+    ringColor: "ring-sky-200",
+  },
+  {
+    icon: Wind,
+    name: "Autumn",
+    months: "Sep – Nov",
+    highlight: "Hampta Pass, Pin Bhaba",
+    active: false,
+    color: "bg-orange-400",
+    textColor: "text-orange-700",
+    bgColor: "bg-orange-50",
+    ringColor: "ring-orange-200",
   },
 ];
 
@@ -177,6 +229,59 @@ export default async function HomePage() {
                   </span>
                   <h3 className="text-lg font-bold text-ink">{step.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink/60">{step.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Seasons ──────────────────────────────────────────────────── */}
+        <section className="bg-white py-20">
+          <div className="section">
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="eyebrow">
+                <TrendingUp className="h-4 w-4" aria-hidden="true" />
+                Trek by season
+              </span>
+              <h2 className="mt-4 text-4xl font-extrabold text-ink sm:text-5xl">
+                Every season has a summit
+              </h2>
+              <p className="mt-4 text-balance text-lg text-ink/60">
+                The Himalayas are spectacular year-round. Pick the season that fits your schedule.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {seasons.map((s) => (
+                <div
+                  key={s.name}
+                  className={`relative overflow-hidden rounded-3xl border p-6 ${
+                    s.active
+                      ? `border-emerald-200 ${s.bgColor} shadow-sm`
+                      : "border-brand-100 bg-brand-50/40"
+                  }`}
+                >
+                  {s.active && (
+                    <span className="absolute right-4 top-4 rounded-full bg-emerald-500 px-2.5 py-0.5 text-[0.65rem] font-bold text-white">
+                      NOW OPEN
+                    </span>
+                  )}
+                  <span
+                    className={`grid h-11 w-11 place-items-center rounded-2xl ${s.bgColor} ring-1 ${s.ringColor} ${s.textColor}`}
+                  >
+                    <s.icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-4 text-lg font-bold text-ink">{s.name}</h3>
+                  <p className="text-xs font-semibold text-ink/45">{s.months}</p>
+                  <p className="mt-2 text-sm text-ink/65">{s.highlight}</p>
+                  {s.active && (
+                    <Link
+                      href="/treks"
+                      className={`mt-4 inline-flex items-center gap-1 text-xs font-semibold ${s.textColor} hover:underline`}
+                    >
+                      View open treks
+                      <ArrowRight className="h-3 w-3" aria-hidden="true" />
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>
