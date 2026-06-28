@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import FaqAccordion from "@/components/FaqAccordion";
 import { siteConfig } from "@/lib/site";
 
 export const metadata = {
@@ -77,13 +78,18 @@ export default function ContactPage() {
               })}
             </div>
 
-            {/* Map placeholder */}
-            <div className="mt-6 flex h-64 items-center justify-center rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-100 to-brand-200 text-center text-brand-700">
-              <div>
-                <MapPin className="mx-auto h-8 w-8" aria-hidden="true" />
-                <p className="mt-2 text-sm font-medium">Map embed goes here</p>
-                <p className="text-xs text-brand-700/70">Pune · Maharashtra</p>
-              </div>
+            {/* Google Maps embed */}
+            <div className="mt-6 overflow-hidden rounded-3xl border border-brand-100 shadow-card">
+              <iframe
+                title="Travello office location — Pune"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.0795904879!2d73.8361!3d18.5196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c073212c5ee3%3A0x9b9c1c4e01e4e7b2!2sFC%20Road%2C%20Pune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="260"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 
@@ -105,21 +111,8 @@ export default function ContactPage() {
             </h2>
           </div>
 
-          <div className="mt-10 space-y-3">
-            {faqs.map((faq) => (
-              <details
-                key={faq.q}
-                className="group rounded-2xl border border-brand-100 bg-brand-50/50 p-5 [&_summary::-webkit-details-marker]:hidden"
-              >
-                <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-ink">
-                  {faq.q}
-                  <span className="grid h-7 w-7 flex-shrink-0 place-items-center rounded-full bg-white text-brand-700 transition-transform duration-300 group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">{faq.a}</p>
-              </details>
-            ))}
+          <div className="mt-10">
+            <FaqAccordion faqs={faqs} />
           </div>
         </div>
       </section>
