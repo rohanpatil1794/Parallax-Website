@@ -7,19 +7,25 @@ A full-stack **trekking company website** with a headless CMS admin panel, built
 ### Public site
 | Page | What it does |
 | --- | --- |
-| `/` | Parallax hero · How it works · Trek cards · Testimonials · Stats · CTA |
-| `/treks` | Search + difficulty + region filters · sort by price/duration/rating |
-| `/treks/[slug]` | Full itinerary · difficulty meter · packing list · share button · JSON-LD |
+| `/` | Parallax hero · Trek by season · How it works · Trek cards · Testimonials · Stats · CTA |
+| `/treks` | Quick-pick presets · search · difficulty + region filters with counts · sort |
+| `/treks/[slug]` | Full itinerary · altitude visualizer · difficulty meter · packing list · share button · JSON-LD · mobile sticky CTA |
 | `/book` | Booking form with trek preview sidebar · UPI / credit / debit payment UI |
-| `/gallery` | Masonry grid · lightbox with dot indicators, counter, and keyboard nav |
-| `/about` | Story · milestones band · values · team cards · certifications · careers |
-| `/contact` | Contact cards · Google Maps embed · animated FAQ accordion |
-| `/terms` | Terms & policies |
+| `/gallery` | Masonry grid · location filter pills · lightbox with dot indicators, counter, keyboard nav |
+| `/about` | Story · milestones band · values · team cards · certifications · journey timeline · careers |
+| `/contact` | Contact cards · WhatsApp quick-chat CTA · Google Maps embed · animated FAQ accordion |
+| `/terms` | Quick-summary band · section icons · Terms & policies |
+| `404` | Branded 404 with navigation CTAs |
 
 ### Global UX
-- Floating back-to-top + WhatsApp chat button (appears after 500px scroll)
+- Scroll progress bar in header (fills as you read)
+- Floating back-to-top (with SVG progress ring) + WhatsApp chat button
 - Newsletter signup in footer (animated submit + success state)
-- Header active-page underline indicator
+- Header active-page underline indicator + scroll-aware transparency
+- Skip-to-content accessibility link
+- Custom scrollbar + print styles
+- Next.js loading skeletons for treks & gallery pages
+- Global error boundary
 - Dynamic sitemap at `/sitemap.xml` and robots at `/robots.txt`
 
 ### Admin CMS (`/admin`)
