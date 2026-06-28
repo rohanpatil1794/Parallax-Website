@@ -6,6 +6,8 @@ import {
   Award,
   ArrowRight,
   Mountain,
+  Star,
+  Quote,
 } from "lucide-react";
 import ParallaxHero from "@/components/ParallaxHero";
 import TrekCard from "@/components/TrekCard";
@@ -39,6 +41,33 @@ const stats = [
   { value: "18K", label: "Happy trekkers" },
   { value: "40+", label: "Routes mapped" },
   { value: "4.9★", label: "Average rating" },
+];
+
+const testimonials = [
+  {
+    name: "Priya Menon",
+    trek: "Kedarkantha Summit",
+    rating: 5,
+    quote:
+      "The Kedarkantha winter trek was absolutely magical. Our guide Rajan knew every shortcut and kept spirits high even at -12°C. Would do it all over again.",
+    location: "Bengaluru",
+  },
+  {
+    name: "Arjun Sharma",
+    trek: "Hampta Pass Crossing",
+    rating: 5,
+    quote:
+      "I was terrified of altitude before this trip. The Travello team acclimatised us so well that crossing Hampta Pass at 4,270 m felt completely achievable.",
+    location: "Mumbai",
+  },
+  {
+    name: "Sneha Kulkarni",
+    trek: "Valley of Flowers",
+    rating: 5,
+    quote:
+      "The Valley of Flowers was a dream. Small group of 8, plastic-free camp, and a guide who could name every wildflower. Exactly what I was looking for.",
+    location: "Pune",
+  },
 ];
 
 export default async function HomePage() {
@@ -113,6 +142,46 @@ export default async function HomePage() {
                   <p className="mt-2 text-sm leading-relaxed text-ink/65">
                     {item.body}
                   </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Testimonials ─────────────────────────────────────────────── */}
+        <section className="bg-brand-50 py-20">
+          <div className="section">
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="eyebrow">
+                <Star className="h-4 w-4 fill-ember-400 text-ember-400" aria-hidden="true" />
+                Trekker stories
+              </span>
+              <h2 className="mt-4 text-4xl font-extrabold text-ink sm:text-5xl">
+                Heard from the trail
+              </h2>
+              <p className="mt-4 text-balance text-lg text-ink/60">
+                Real words from trekkers who've stood on real summits with us.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 sm:grid-cols-3">
+              {testimonials.map((t) => (
+                <div
+                  key={t.name}
+                  className="relative flex flex-col rounded-3xl border border-brand-100 bg-white p-7 shadow-card"
+                >
+                  <Quote className="h-8 w-8 text-brand-200" aria-hidden="true" />
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/75">
+                    {t.quote}
+                  </p>
+                  <div className="mt-5 flex items-center gap-1">
+                    {Array.from({ length: t.rating }).map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-ember-400 text-ember-400" aria-hidden="true" />
+                    ))}
+                  </div>
+                  <div className="mt-4 border-t border-brand-100 pt-4">
+                    <p className="font-semibold text-ink">{t.name}</p>
+                    <p className="text-xs text-ink/50">{t.trek} · {t.location}</p>
+                  </div>
                 </div>
               ))}
             </div>
