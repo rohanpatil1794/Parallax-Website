@@ -31,10 +31,23 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const trek = await getTrekBySlug(params.slug);
   if (!trek) return { title: "Trek not found" };
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://travello.com";
   return {
     title: trek.name,
     description: trek.short,
-    openGraph: { images: [{ url: trek.image }] },
+    openGraph: {
+      title: `${trek.name} · Travello`,
+      description: trek.short,
+      images: [{ url: trek.image, width: 1200, height: 630, alt: trek.name }],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${trek.name} · Travello`,
+      description: trek.short,
+      images: [trek.image],
+    },
+    alternates: { canonical: `${base}/treks/${trek.slug}` },
   };
 }
 
@@ -60,8 +73,37 @@ export default async function TrekDetailPage({ params }) {
     .filter((t) => t.slug !== trek.slug)
     .slice(0, 3);
 
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://travello.com";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    name: trek.name,
+    description: trek.long || trek.short,
+    image: trek.image,
+    url: `${base}/treks/${trek.slug}`,
+    touristType: "Adventure tourism",
+    geo: { "@type": "GeoCoordinates" },
+    offers: {
+      "@type": "Offer",
+      price: trek.price,
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+      url: `${base}/book?trek=${trek.slug}`,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: trek.rating,
+      bestRating: 5,
+      ratingCount: trek.reviews ?? 100,
+    },
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ── Image banner ─────────────────────────────────────────────── */}
       <section className="relative min-h-[68vh] w-full overflow-hidden">
         <Image
