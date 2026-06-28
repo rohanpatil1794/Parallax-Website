@@ -8,6 +8,10 @@ import {
   Mountain,
   Star,
   Quote,
+  Search,
+  CreditCard,
+  Backpack,
+  Flag,
 } from "lucide-react";
 import ParallaxHero from "@/components/ParallaxHero";
 import TrekCard from "@/components/TrekCard";
@@ -41,6 +45,33 @@ const stats = [
   { value: "18K", label: "Happy trekkers" },
   { value: "40+", label: "Routes mapped" },
   { value: "4.9★", label: "Average rating" },
+];
+
+const howItWorks = [
+  {
+    step: "01",
+    icon: Search,
+    title: "Pick your trail",
+    body: "Browse by difficulty, region or season. Expand any card to read the full itinerary before committing.",
+  },
+  {
+    step: "02",
+    icon: CreditCard,
+    title: "Reserve with 25%",
+    body: "Lock your spot with a small advance via UPI or card. No hidden fees — the balance is paid at base camp.",
+  },
+  {
+    step: "03",
+    icon: Backpack,
+    title: "We prep you",
+    body: "Get a personalised kit list, pre-trek briefing call, and a WhatsApp group with your guide team.",
+  },
+  {
+    step: "04",
+    icon: Flag,
+    title: "Reach your summit",
+    body: "Show up, breathe deep, and follow your guide. We handle the rest — permits, camps, meals, safety.",
+  },
 ];
 
 const testimonials = [
@@ -116,6 +147,38 @@ export default async function HomePage() {
                 Explore all treks
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── How it works ─────────────────────────────────────────────── */}
+        <section className="bg-brand-50 py-20">
+          <div className="section">
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="eyebrow">How it works</span>
+              <h2 className="mt-4 text-4xl font-extrabold text-ink sm:text-5xl">
+                Summit in four steps
+              </h2>
+              <p className="mt-4 text-balance text-lg text-ink/60">
+                From browsing to base camp — here's exactly what happens when you book with Travello.
+              </p>
+            </div>
+            <div className="mt-14 grid gap-0 sm:grid-cols-2 lg:grid-cols-4">
+              {howItWorks.map((step, i) => (
+                <div key={step.step} className="relative flex flex-col items-center px-6 text-center">
+                  {i < howItWorks.length - 1 && (
+                    <div className="absolute left-1/2 top-8 hidden h-0.5 w-full bg-brand-100 lg:block" aria-hidden="true" />
+                  )}
+                  <span className="relative z-10 mb-5 grid h-16 w-16 place-items-center rounded-2xl border-2 border-brand-200 bg-white text-brand-700 shadow-card">
+                    <step.icon className="h-7 w-7" aria-hidden="true" />
+                    <span className="absolute -right-2 -top-2 grid h-6 w-6 place-items-center rounded-full bg-ember-500 text-[0.65rem] font-bold text-white">
+                      {step.step}
+                    </span>
+                  </span>
+                  <h3 className="text-lg font-bold text-ink">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink/60">{step.body}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
