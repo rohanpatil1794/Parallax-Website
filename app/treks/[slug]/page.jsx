@@ -21,6 +21,21 @@ import {
   formatPrice,
   difficultyTone,
 } from "@/lib/treks";
+import ShareButton from "@/components/ShareButton";
+
+const DIFFICULTY_METER = { Easy: 1, Moderate: 2, Challenging: 3 };
+const PACKING_ESSENTIALS = [
+  "Layered warm clothing (fleece + windproof jacket)",
+  "Sturdy ankle-support trekking boots",
+  "Rain poncho or waterproof jacket",
+  "Sunscreen SPF 50+, lip balm, and UV sunglasses",
+  "Headlamp with spare batteries",
+  "Reusable water bottle (2 L minimum)",
+  "Personal first-aid kit and blister pads",
+  "High-energy snacks (nuts, energy bars)",
+  "Quick-dry towel and biodegradable soap",
+  "Trekking poles (optional, highly recommended for knees)",
+];
 
 // Pre-render a static page per trek (great for SEO + speed).
 export async function generateStaticParams() {
@@ -157,6 +172,9 @@ export default async function TrekDetailPage({ params }) {
           <p className="mt-3 max-w-2xl text-balance text-lg text-white/80">
             {trek.tagline}
           </p>
+          <div className="mt-6">
+            <ShareButton title={trek.name} />
+          </div>
         </div>
       </section>
 
@@ -224,6 +242,51 @@ export default async function TrekDetailPage({ params }) {
                   <li key={inc} className="flex items-start gap-3 text-sm text-ink/75">
                     <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-500" aria-hidden="true" />
                     {inc}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Difficulty meter */}
+            <div className="mt-10 rounded-3xl border border-brand-100 bg-white p-6">
+              <h2 className="text-lg font-bold text-ink">Difficulty at a glance</h2>
+              <div className="mt-4 flex items-center gap-4">
+                <div className="flex flex-1 gap-1.5">
+                  {[1, 2, 3].map((lvl) => (
+                    <div
+                      key={lvl}
+                      className={`h-3 flex-1 rounded-full transition-colors ${
+                        lvl <= (DIFFICULTY_METER[trek.difficulty] ?? 1)
+                          ? trek.difficulty === "Challenging"
+                            ? "bg-rose-500"
+                            : trek.difficulty === "Moderate"
+                            ? "bg-amber-400"
+                            : "bg-emerald-400"
+                          : "bg-brand-100"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className="text-sm font-semibold text-ink">{trek.difficulty}</span>
+              </div>
+              <p className="mt-3 text-xs text-ink/55">
+                {trek.difficulty === "Easy" && "Suitable for beginners. Moderate fitness required. No prior trekking experience needed."}
+                {trek.difficulty === "Moderate" && "Requires reasonable fitness. Some steep sections and multi-day effort. Beginners with preparation are welcome."}
+                {trek.difficulty === "Challenging" && "High altitude, long days, and demanding terrain. Prior trekking experience strongly recommended."}
+              </p>
+            </div>
+
+            {/* Packing list */}
+            <div className="mt-10">
+              <h2 className="text-2xl font-bold text-ink">What to pack</h2>
+              <p className="mt-2 text-sm text-ink/55">
+                Your Travello guide will share a detailed kit list after booking. Here are the essentials for most of our treks:
+              </p>
+              <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                {PACKING_ESSENTIALS.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-ink/75">
+                    <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500" aria-hidden="true" />
+                    {item}
                   </li>
                 ))}
               </ul>
