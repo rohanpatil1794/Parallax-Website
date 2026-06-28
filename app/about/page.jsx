@@ -7,9 +7,27 @@ import {
   Compass,
   Mountain,
   ArrowRight,
+  Award,
+  Star,
+  Users,
+  MapPin,
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import { getAboutData } from "@/lib/serverData";
+
+const certifications = [
+  { label: "Wilderness First Responder", body: "All lead guides are WFR-certified — trained in remote emergency medicine." },
+  { label: "Leave No Trace Educator", body: "Our crew are LNT educators. Every group gets a trail-ethics briefing before departure." },
+  { label: "Tourism Ministry Registered", body: "Licensed with the Ministry of Tourism, Government of India." },
+  { label: "4.9 ★ Avg. Rating", body: "Maintained across 18,000+ trekkers over 9 seasons." },
+];
+
+const milestones = [
+  { icon: Users,  value: "18K+",  label: "Trekkers guided" },
+  { icon: MapPin, value: "40+",   label: "Routes mapped" },
+  { icon: Star,   value: "4.9",   label: "Average rating" },
+  { icon: Award,  value: "9",     label: "Seasons running" },
+];
 
 const iconMap = { Compass, ShieldCheck, Leaf, HeartHandshake };
 
@@ -63,6 +81,21 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* Milestones band */}
+      <section className="bg-ink py-14">
+        <div className="section">
+          <dl className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+            {milestones.map((m) => (
+              <div key={m.label} className="text-center">
+                <m.icon className="mx-auto h-6 w-6 text-ember-400 mb-2" aria-hidden="true" />
+                <dt className="font-display text-4xl font-extrabold text-white">{m.value}</dt>
+                <dd className="mt-1 text-sm text-brand-200/75">{m.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
       {/* Values / Why (#why) */}
       <section id="why" className="bg-brand-50 py-20">
         <div className="section">
@@ -100,14 +133,18 @@ export default async function AboutPage() {
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member) => (
-              <div key={member.name} className="rounded-3xl border border-brand-100 bg-brand-50/50 p-6 text-center">
+              <div
+                key={member.name}
+                className="group relative overflow-hidden rounded-3xl border border-brand-100 bg-white p-6 text-center shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+              >
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100 from-brand-400 to-ember-400" />
                 <span
-                  className={`mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br ${member.tone} font-display text-2xl font-bold text-white shadow-md`}
+                  className={`mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br ${member.tone} font-display text-2xl font-bold text-white shadow-md ring-4 ring-white`}
                 >
                   {member.initials}
                 </span>
                 <h3 className="mt-4 text-lg font-bold text-ink">{member.name}</h3>
-                <p className="text-sm text-brand-700">{member.role}</p>
+                <p className="text-sm font-medium text-brand-600">{member.role}</p>
               </div>
             ))}
           </div>
@@ -150,6 +187,30 @@ export default async function AboutPage() {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section className="bg-white py-20">
+        <div className="section">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">
+              <Award className="h-4 w-4" aria-hidden="true" />
+              Credentials
+            </span>
+            <h2 className="mt-4 text-3xl font-extrabold text-ink sm:text-4xl">
+              Certified, licensed, and trusted
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {certifications.map((c) => (
+              <div key={c.label} className="rounded-3xl border border-brand-100 bg-brand-50/60 p-6">
+                <div className="mb-3 h-1 w-10 rounded-full bg-ember-400" />
+                <h3 className="font-bold text-ink">{c.label}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/60">{c.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
