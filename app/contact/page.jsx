@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -77,6 +77,23 @@ export default function ContactPage() {
                 );
               })}
             </div>
+
+            {/* WhatsApp quick CTA */}
+            <a
+              href="https://wa.me/919876543210?text=Hi%20Travello%2C%20I%20have%20a%20question%20about%20a%20trek."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 flex items-center gap-3 rounded-3xl border border-emerald-200 bg-emerald-50 p-5 shadow-card transition-colors hover:bg-emerald-100"
+            >
+              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-[#25D366] text-white shadow-sm">
+                <Send className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-emerald-900">Chat on WhatsApp</p>
+                <p className="text-xs text-emerald-700/70">Usually responds in under 5 minutes</p>
+              </div>
+              <span className="ml-auto text-xs font-bold text-emerald-600">Open chat →</span>
+            </a>
 
             {/* Google Maps embed */}
             <div className="mt-6 overflow-hidden rounded-3xl border border-brand-100 shadow-card">
