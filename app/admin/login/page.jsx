@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Mountain, Loader2 } from "lucide-react";
 
-export default function AdminLoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from") ?? "/admin";
@@ -37,6 +37,58 @@ export default function AdminLoginPage() {
   }
 
   return (
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm space-y-5"
+    >
+      <div>
+        <label className="block text-sm font-medium text-ink mb-1.5">
+          Username
+        </label>
+        <input
+          type="text"
+          autoComplete="username"
+          value={form.username}
+          onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
+          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-ink outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-ink mb-1.5">
+          Password
+        </label>
+        <input
+          type="password"
+          autoComplete="current-password"
+          value={form.password}
+          onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+          className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-ink outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+          required
+        />
+      </div>
+
+      {error && (
+        <p className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-600">
+          {error}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+      >
+        {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+        {loading ? "Signing in…" : "Sign in"}
+      </button>
+    </form>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-sm">
         <div className="flex flex-col items-center mb-8">
@@ -47,53 +99,17 @@ export default function AdminLoginPage() {
           <p className="mt-1 text-sm text-ink/50">Sign in to manage site content</p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm space-y-5"
-        >
-          <div>
-            <label className="block text-sm font-medium text-ink mb-1.5">
-              Username
-            </label>
-            <input
-              type="text"
-              autoComplete="username"
-              value={form.username}
-              onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-ink outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
-              required
-            />
+        <Suspense fallback={
+          <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+            <div className="space-y-4">
+              <div className="h-10 animate-pulse rounded-xl bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-xl bg-slate-100" />
+              <div className="h-10 animate-pulse rounded-xl bg-slate-100" />
+            </div>
           </div>
-
-          <div>
-            <label className="block text-sm font-medium text-ink mb-1.5">
-              Password
-            </label>
-            <input
-              type="password"
-              autoComplete="current-password"
-              value={form.password}
-              onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-ink outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
-              required
-            />
-          </div>
-
-          {error && (
-            <p className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-600">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-          >
-            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-            {loading ? "Signing in…" : "Sign in"}
-          </button>
-        </form>
+        }>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   );
